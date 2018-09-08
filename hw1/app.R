@@ -30,8 +30,6 @@ ui <- navbarPage("Iris Time",
                           checkboxGroupInput("checkGroup", label = h3("Iris Petals"), 
                                              choices = list("Length" = 1, "Width" = 2, "Species" = 3),
                                              selected = 1),
-                          
-                          
                           hr(), # Ooo, I've never done this nice design idea
                           fluidRow(column(3, verbatimTextOutput("value")))
                  )
@@ -44,11 +42,9 @@ server <- function(input, output, session) {
     newdata <- subset(iris, iris$Petal.Length==input$Petal.Length)
     ggplot(newdata, aes(x=Sepal.Width)) + geom_histogram(fill = "steelblue")
   })
-  
   output$table <- DT::renderDataTable({
     DT::datatable(iris)
   })
-  
   output$value <- renderPrint({ input$checkGroup 
   })
 }
