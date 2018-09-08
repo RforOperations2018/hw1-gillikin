@@ -13,8 +13,7 @@ ui <- navbarPage("Iris Time",
                  tabPanel("Plot",
                           sidebarLayout(
                             sidebarPanel(
-                              selectInput('Petal.Length','Petal.Length',choices = petal.l)
-                              
+                              selectInput('Petal.Length','Petal.Length', choices = petal.l)
                             ),
                             mainPanel(
                             plotOutput('distPlot')  
@@ -26,20 +25,21 @@ ui <- navbarPage("Iris Time",
                           DT::dataTableOutput("table")
                  ),
                  # Input navbar because I needed another input but unfortunately don't have time to develop this further
+                 # No worries, the filters don't have to work
                  tabPanel("Input",
                           checkboxGroupInput("checkGroup", label = h3("Iris Petals"), 
                                              choices = list("Length" = 1, "Width" = 2, "Species" = 3),
                                              selected = 1),
                           
                           
-                          hr(),
+                          hr(), # Ooo, I've never done this nice design idea
                           fluidRow(column(3, verbatimTextOutput("value")))
-                          
                  )
 )
   
 # Define server logic
 server <- function(input, output, session) {
+  # No renderPlotly? No pts removed, only my feelings have been hurt
   output$distPlot <- renderPlot({
     newdata <- subset(iris, iris$Petal.Length==input$Petal.Length)
     ggplot(newdata, aes(x=Sepal.Width)) + geom_histogram(fill = "steelblue")
